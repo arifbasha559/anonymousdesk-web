@@ -9,11 +9,7 @@ const TRENDING = [
   { tag: '#LLMTrainingDataLeak', category: 'Whistleblowing', count: '412', status: 'Active' },
 ];
 
-const CONTRIBUTORS = [
-  { title: 'General Counsel · M&A', handle: '@Tier-1 Legal', trust: '99%', icon: '⚖️' },
-  { title: 'VP of Eng · FinTech', handle: '@Tier-1 Cloud', trust: '98%', icon: '☁️' },
-  { title: 'Chief People Officer', handle: '@Fortune 500 HR', trust: '96%', icon: '👥' },
-];
+
 
 export default function RightRail() {
   const [q, setQ] = useState('');
@@ -24,54 +20,39 @@ export default function RightRail() {
   };
 
   return (
-    <>
+    <div className="hidden lg:flex flex-col gap-4 w-full shrink-0 h-full">
       <form onSubmit={onSearch} className="relative">
         <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-secondary" />
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)}
           placeholder="Search dilemmas, tags, sectors..."
           className="w-full bg-surface-container-low border border-outline-variant/20 rounded-full py-3 pl-12 pr-4 font-body-md text-on-surface placeholder:text-text-tertiary focus:outline-none focus:border-primary/50 focus:ring-1 focus:ring-primary/30 transition-colors" />
       </form>
+      <div className="flex flex-col w-full justify-between h-full ">
 
-      <div className="bg-surface-container rounded-2xl border border-outline-variant/15 relative overflow-auto">
-        <div className="flex items-center justify-between px-4 py-3 sticky top-0 bg-surface-container">
-          <h2 className="font-headline-md text-on-surface ">Trending Dilemmas</h2>
-          <HiOutlineSparkles className="w-5 h-5 text-text-secondary" />
+        <div className="bg-surface-container rounded-2xl border border-outline-variant/15 relative overflow-auto">
+          <div className="flex items-center justify-between px-4 py-3 sticky top-0 bg-surface-container">
+            <h2 className="font-headline-md text-on-surface ">Trending Dilemmas</h2>
+            <HiOutlineSparkles className="w-5 h-5 text-text-secondary" />
+          </div>
+          <div className="divide-y divide-outline-variant/15 overflow-auto">
+            {TRENDING.map((t) => (
+              <Link key={t.tag} to={`/search?tag=${encodeURIComponent(t.tag.slice(1))}`}
+                className="block px-4 py-3 hover:bg-surface-container-low transition-colors">
+                <p className="font-label-sm text-text-secondary">{t.category} · {t.status}</p>
+                <p className="font-body-lg-bold text-on-surface mt-0.5">{t.tag}</p>
+                <p className="font-label-sm text-text-secondary mt-0.5">{t.count} dilemmas</p>
+              </Link>
+            ))}
+          </div>
         </div>
-        <div className="divide-y divide-outline-variant/15 overflow-auto">
-          {TRENDING.map((t) => (
-            <Link key={t.tag} to={`/search?tag=${encodeURIComponent(t.tag.slice(1))}`}
-              className="block px-4 py-3 hover:bg-surface-container-low transition-colors">
-              <p className="font-label-sm text-text-secondary">{t.category} · {t.status}</p>
-              <p className="font-body-lg-bold text-on-surface mt-0.5">{t.tag}</p>
-              <p className="font-label-sm text-text-secondary mt-0.5">{t.count} dilemmas</p>
-            </Link>
-          ))}
+
+
+
+        <div className="px-2 py-2 text-justify">
+          <p className="font-label-sm text-text-tertiary leading-relaxed text-center">ZK Whitepaper · Privacy Protocol · Terms · Bug Bounty</p>
+          <p className="font-label-sm text-text-tertiary mt-1 text-center">© 2025 AnonymousDesk Inc. All rights reserved.</p>
         </div>
       </div>
-
-      <div className="bg-surface-container rounded-2xl border border-outline-variant/15 overflow-auto relative">
-        <div className="flex items-center justify-between px-4 py-3 sticky top-0 bg-surface-container">
-          <h2 className="font-headline-md text-on-surface">Top Contributors</h2>
-          <HiOutlineShieldCheck className="w-5 h-5 text-text-secondary" />
-        </div>
-        <div className="divide-y divide-outline-variant/15">
-          {CONTRIBUTORS.map((c) => (
-            <div key={c.handle} className="flex items-center gap-3 px-4 py-3">
-              <div className="w-10 h-10 rounded-full bg-surface-container-highest flex items-center justify-center text-lg shrink-0">{c.icon}</div>
-              <div className="flex-1 min-w-0">
-                <p className="font-body-md-medium text-on-surface truncate">{c.title}</p>
-                <p className="font-label-sm text-text-secondary truncate">{c.handle} · {c.trust} Trust</p>
-              </div>
-              <button className="shrink-0 px-3 py-1.5 rounded-full border border-outline-variant/40 font-label-md text-on-surface hover:bg-surface-container-high transition-colors">Consult</button>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="px-2 py-2">
-        <p className="font-label-sm text-text-tertiary leading-relaxed">ZK Whitepaper · Privacy Protocol · Terms · Bug Bounty</p>
-        <p className="font-label-sm text-text-tertiary mt-1">© 2025 AnonymousDesk Inc. All rights reserved.</p>
-      </div>
-    </>
+    </div>
   );
 }

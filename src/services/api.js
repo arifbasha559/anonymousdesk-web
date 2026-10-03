@@ -141,8 +141,8 @@ export const notifApi = {
   list: (params) => api.get('/notifications', { params }),
   markRead: (id) => api.patch(`/notifications/${id}/read`),
   markAllRead: () => api.patch('/notifications/read-all'),
-  deleteOne: () => api.delete(`/notification/${id}/delete`),
-  deleteAll: () => api.delete(`/notification/delete-all`)
+  deleteOne: (id) => api.delete(`/notifications/${id}/delete`),
+  deleteAll: () => api.delete(`/notifications/delete-all`)
 };
 
 // ── Users ─────────────────────────────────────────────

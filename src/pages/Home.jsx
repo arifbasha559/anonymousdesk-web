@@ -2,6 +2,8 @@ import { useEffect, useState, useCallback } from 'react';
 import { postsApi } from '../services/api';
 import PostCard from '../components/PostCard';
 import { HiOutlineSparkles } from 'react-icons/hi';
+import { FaArrowUpRightDots, FaClockRotateLeft } from 'react-icons/fa6';
+import { FaHotjar } from 'react-icons/fa';
 
 export default function Home() {
   const [posts, setPosts] = useState([]);
@@ -31,6 +33,7 @@ export default function Home() {
   return (
     <div>
       {/* Header */}
+
       <header className="sticky top-0 z-20 bg-background/85 backdrop-blur-md border-b border-outline-variant/20 px-4 py-3 flex items-center justify-between">
         <div>
           <h1 className="font-headline-lg text-on-surface">Home</h1>
@@ -40,12 +43,11 @@ export default function Home() {
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            style={{ "appearance": "base-select" }}
-            className=" bg-surface-container border border-outline-variant/30 rounded-full px-3 py-1.5 font-label-md text-on-surface focus:outline-none focus:border-primary/50"
+            className="sort-select"
           >
-            <option value="recent">Recent</option>
-            <option value="top">Top</option>
-            <option value="trending">Trending</option>
+            <option value="recent"><FaClockRotateLeft />Recent</option>
+            <option value="top"><FaArrowUpRightDots /> Top</option>
+            <option value="Hot"><FaHotjar /> Hot</option>
           </select>
         </div>
       </header>

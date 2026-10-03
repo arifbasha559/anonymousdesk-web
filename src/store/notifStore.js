@@ -10,6 +10,7 @@ export const useNotifStore = create((set, get) => ({
     set({ isLoading: true });
     try {
       const { data } = await notifApi.list(params);
+      console.log(data)
       set({
         items: data.data || [],
         unreadCount: data.meta?.unreadCount ?? 0,
@@ -35,6 +36,23 @@ export const useNotifStore = create((set, get) => ({
       await notifApi.markAllRead();
       set((s) => ({
         items: s.items.map((n) => ({ ...n, read: true })),
+        unreadCount: 0,
+      }));
+    } catch { /* ignore */ }
+  },
+  deleteOne: async (id) => {
+    try {
+      await notifApi.deleteOne(id);
+      set((s) => ({
+        items: s.items.map((n) => (n.id === id ? { ...n, deleted: true } : n)),
+      }));
+    } catch { /* ignore */ }
+  },
+  deleteAll: async () => {
+    try {
+      await notifApi.deleteAll();
+      set((s) => ({
+        items: [],
         unreadCount: 0,
       }));
     } catch { /* ignore */ }

@@ -86,8 +86,11 @@ export const useAuthStore = create(
         if (!getAccessToken()) return;
         try {
           const { data } = await usersApi.profile();
+          console.log(data);
+
           set({ user: { ...get().user, ...data.data }, isAuthenticated: true });
-        } catch {
+        } catch(err) {
+          console.log(err,'Failed to fetch profile');
           /* token may be invalid */
         }
       },

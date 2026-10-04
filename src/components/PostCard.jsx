@@ -118,7 +118,6 @@ export default function PostCard({ post, compact = false }) {
           </div>
           <span className="font-label-sm">{formatCount(post.replyCount || post.replies || 0)}</span>
         </Link>
-        {console.log(user, post)}
         <button
           onClick={post.authorId == user.anonId ? () => { console.log(user.anonId, post.authorId) } : handleUpvote}
           disabled={!isAuth || busy}
